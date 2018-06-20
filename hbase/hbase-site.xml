@@ -4,7 +4,6 @@
         <value>file:///opt/data/hbase</value>
     </property>
 
-
     <!-- zk的位置 -->
     <property>
         <name>hbase.zookeeper.quorum</name>
