@@ -1,0 +1,23 @@
+<configuration>
+    <property>
+        <name>hbase.rootdir</name>
+        <value>file:///opt/data/hbase</value>
+    </property>
+    <property>
+        <name>hbase.zookeeper.property.dataDir</name>
+        <value>/opt/data/zookeeper/</value>
+    </property>
+    <property>
+        <name>hbase.master.port</name>
+        <value>2181</value>
+    </property>
+    <property>
+        <name>hbase.zookeeper.property.clientPort</name>
+        <value>2182</value>
+  </property>
+    <property>
+        <name>hbase.regionserver.port</name>
+        <value>60020</value>
+    </property>
+</configuration>
+
