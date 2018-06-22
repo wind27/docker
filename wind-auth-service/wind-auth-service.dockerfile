@@ -1,4 +1,4 @@
-FROM centos7-jdk8-maven3:7.8.3
+FROM centos-jdk-maven:7.8.3
 
 MAINTAINER qianchun, qianchun27@hotmail.com
 
