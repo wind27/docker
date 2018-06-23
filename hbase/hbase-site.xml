@@ -1,0 +1,31 @@
+<configuration>
+    <property>
+        <name>hbase.rootdir</name>
+        <value>file:///opt/data/hbase</value>
+    </property>
+
+    <!-- zk的位置 -->
+    <property>
+        <name>hbase.zookeeper.quorum</name>
+        <value>zookeeper</value>
+        <description>the pos of zk</description>
+    </property>
+
+    <!-- 此处必须为true，不然hbase仍用自带的zk，若启动了外部的zookeeper，会导致冲突，hbase启动不起来 --> 
+    <property>
+        <name>hbase.cluster.distributed</name>
+        <value>true</value>
+    </property>
+    <!-- 
+    <property>
+        <name>hbase.zookeeper.property.dataDir</name>
+        <value>/opt/data/hbase/zookeeper/</value>
+    </property>
+    -->
+
+    <!-- hbase主节点的位置 -->
+    <property>
+        <name>hbase.master</name>
+        <value>localhost:60000</value>
+    </property>
+</configuration>

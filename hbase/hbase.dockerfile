@@ -9,4 +9,10 @@ ENV BASE_INSTALL_DIR /opt/install
 RUN mkdir -p ${BASE_INSTALL_DIR}
 
 COPY install.sh ${BASE_INSTALL_DIR}
+COPY hbase.sh ${BASE_INSTALL_DIR}
+COPY start.sh ${BASE_INSTALL_DIR}
+
+COPY hbase-site.xml ${BASE_INSTALL_DIR}
+COPY zoo.cfg ${BASE_INSTALL_DIR}
+
 RUN sh /opt/install/install.sh

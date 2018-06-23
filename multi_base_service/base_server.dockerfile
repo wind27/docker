@@ -1,4 +1,4 @@
-FROM centos:7
+FROM centos-jdk-maven:7.8.3
 MAINTAINER qianchun, qianchun27@hotmail.com
 
 RUN ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime

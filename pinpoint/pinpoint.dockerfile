@@ -1,4 +1,4 @@
-FROM centos7-jdk8-maven3:7.8.3
+FROM centos-jdk-maven:7.8.3
 
 MAINTAINER qianchun, qianchun27@hotmail.com
 
@@ -9,7 +9,8 @@ ENV BASE_INSTALL_DIR /opt/install
 RUN mkdir -p ${BASE_INSTALL_DIR}
 
 COPY install.sh ${BASE_INSTALL_DIR}
-COPY hbase.sh ${BASE_INSTALL_DIR}
 COPY pinpoint.sh ${BASE_INSTALL_DIR}
+COPY tomcat.sh ${BASE_INSTALL_DIR}
+COPY pinpoint.tar.gz ${BASE_INSTALL_DIR}
 
 RUN sh /opt/install/install.sh
