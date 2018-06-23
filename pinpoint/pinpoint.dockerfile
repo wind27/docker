@@ -13,4 +13,7 @@ COPY pinpoint.sh ${BASE_INSTALL_DIR}
 COPY tomcat.sh ${BASE_INSTALL_DIR}
 COPY pinpoint.tar.gz ${BASE_INSTALL_DIR}
 
+COPY hbase-site.xml ${BASE_INSTALL_DIR}
+COPY zoo.cfg ${BASE_INSTALL_DIR}
+
 RUN sh /opt/install/install.sh
