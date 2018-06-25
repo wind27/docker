@@ -22,4 +22,9 @@ rm -rf /usr/local/collector/apache-tomcat-8.5.31/webapps/ROOT/*
 wget https://github.com/naver/pinpoint/releases/download/1.7.3/pinpoint-collector-1.7.3.war
 unzip /opt/install/pinpoint-collector-1.7.3.war -d /usr/local/collector/apache-tomcat-8.5.31/webapps/ROOT
 sed -i 's/hbase.client.host=localhost/hbase.client.host=zookeeper/g'  /usr/local/collector/apache-tomcat-8.5.31/webapps/ROOT/WEB-INF/classes/hbase.properties
+
+sed -i 's/cluster.zookeeper.address=localhost/cluster.zookeeper.address=zookeeper/g'  /usr/local/collector/apache-tomcat-8.5.31/webapps/ROOT/WEB-INF/classes/pinpoint-collector.properties
+sed -i 's/cluster.listen.ip=/cluster.listen.ip=0.0.0.0/g'  /usr/local/collector/apache-tomcat-8.5.31/webapps/ROOT/WEB-INF/classes/pinpoint-collector.properties
+sed -i 's/cluster.listen.port=/cluster.listen.port=9997/g'  /usr/local/collector/apache-tomcat-8.5.31/webapps/ROOT/WEB-INF/classes/pinpoint-collector.properties
+
 echo "install pinpoint-collector finish"
