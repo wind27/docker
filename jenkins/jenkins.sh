@@ -1,14 +1,17 @@
 #!/bin/bash
 
-rm -rf /usr/local/jenkins/*
 mkdir -p /usr/local/jenkins
+rm -rf /usr/local/jenkins/*
 
-# download mysql yum repo and install mysql
-cd /opt/install/
-rm -rf jenkins-2.107.3-1.1.noarch.rpm
-wget https://pkg.jenkins.io/redhat-stable/jenkins-2.107.3-1.1.noarch.rpm
+# download 
+if [ ! -d "/opt/install/jenkins-2.107.3-1.1.noarch.rpm" ];then
+	wget -P /opt/install/ https://pkg.jenkins.io/redhat-stable/jenkins-2.107.3-1.1.noarch.rpm
+fi
 
-echo "install jenkins-2.107 ..."
-rpm -ivh jenkins-2.107.3-1.1.noarch.rpm
-rm -rf jenkins-2.107.3-1.1.noarch.rpm
-echo "install jenkins-2.107 finish"
+# install
+jenkins_is_install=`rpm -qa | grep jenkins`
+if [ `rpm -qa | grep jenkins |wc -l` -e 0 ];then
+	rpm -ivh jenkins-2.107.3-1.1.noarch.rpm
+	echo "install jenkins-2.107 finish"
+fi
+echo "jenkins install list : "

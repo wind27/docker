@@ -14,16 +14,10 @@ rm -rf /usr/local/agent/apache-tomcat-8.5.31/webapps/ROOT/*
 wget https://github.com/naver/pinpoint/releases/download/1.7.3/pinpoint-agent-1.7.3.tar.gz
 tar -zxvf /opt/install/pinpoint-agent-1.7.3.tar.gz -C /usr/local/agent/apache-tomcat-8.5.31/webapps/ROOT
 
-
-
-
 echo "init PATH ..."
 echo 'export AGENT_PATH=/usr/local/agent/apache-tomcat-8.5.31/webapps/ROOT/' >> ~/.bashrc
 echo 'export PATH=$PATH:$JAVA_HOME/bin' >> ~/.bashrc
 source ~/.bashrc
-
-
-
 
 echo 'CATALINA_OPTS="$CATALINA_OPTS -javaagent:$AGENT_PATH/pinpoint-bootstrap-$VERSION.jar"' >> /usr/local/agent/apache-tomcat-8.5.31/bin/catalina.sh
 echo 'CATALINA_OPTS="$CATALINA_OPTS -Dpinpoint.agentId=$AGENT_ID"' >> /usr/local/agent/apache-tomcat-8.5.31/bin/catalina.sh

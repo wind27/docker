@@ -16,8 +16,21 @@ echo 'export JAVA_HOME=/usr/java/jdk1.8.0_171-amd64/' >> /usr/local/hbase/hbase-
 echo 'export HBASE_MANAGES_ZK=false' >> /usr/local/hbase/hbase-2.0.0/conf/hbase-env.sh
 echo "init hbase finish";
 
-echo "init PATH ..."
-echo 'export HBASE_HOME=/usr/local/hbase/hbase-2.0.0/' >> ~/.bashrc
-echo 'export PATH=$PATH:$HBASE_HOME/bin' >> ~/.bashrc
-source ~/.bashrc
-echo "init PATH finish"
+# 设置开机启动
+cd /etc/rc.d/init.d/
+rm -rf /etc/rc.d/init.d/hbase 
+touch /etc/rc.d/init.d/hbase
+chmod +x /etc/rc.d/init.d/hbase
+echo '#!/bin/bash' >> /etc/rc.d/init.d/hbase
+echo '# chkconfig: 12345 95 05' >> /etc/rc.d/init.d/hbase
+echo 'sh /usr/local/hbase/hbase-2.0.0/bin/start-hbase.sh start' >> /etc/rc.d/init.d/hbase
+chkconfig --add hbase
+echo 'chkconfig add hbase'
+
+# 启动 hbase
+sh /usr/local/hbase/hbase-2.0.0/bin/start-hbase.sh start
+echo "start hbase finish"
+
+# 初始化数据表
+hbase shell /opt/install/hbase-create.hbase 
+echo "init hbase data finish"

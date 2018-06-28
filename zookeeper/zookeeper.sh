@@ -12,15 +12,17 @@ tar -zxvf zookeeper-3.4.12.tar.gz -C /usr/local/zookeeper
 cp zoo.cfg /usr/local/zookeeper/zookeeper-3.4.12/conf
 echo "install zookeeper-3.4.12 finish"
 
-echo "init PATH ..."
-echo 'export ZK_HOME=/usr/local/zookeeper/zookeeper-3.4.12' >> ~/.bashrc
-echo 'export PATH=$PATH:$ZK_HOME/bin' >> ~/.bashrc
-source ~/.bashrc
-echo "init PATH finish"
+# 设置开机启动
+cd /etc/rc.d/init.d/
+rm -rf /etc/rc.d/init.d/zookeeper 
+touch /etc/rc.d/init.d/zookeeper
+chmod +x /etc/rc.d/init.d/zookeeper
+echo '#!/bin/bash' >> /etc/rc.d/init.d/zookeeper
+echo '# chkconfig: 12345 95 05' >> /etc/rc.d/init.d/zookeeper
+echo 'sh /usr/local/zookeeper/zookeeper-3.4.12/bin/zkServer.sh start' >> /etc/rc.d/init.d/zookeeper
+chkconfig --add zookeeper
+echo "chkconfig add zookeeper"
 
-# 开机启动
-echo "start zookeeper ..."
-chmod +x /etc/rc.d/rc.local
-chmod +x /opt/install/start.sh
-echo 'sh /opt/install/start.sh' >> /etc/rc.d/rc.local
-echo "start zookeeper finish"
+# 启动 zookeeper
+sh /usr/local/zookeeper/zookeeper-3.4.12/bin/zkServer.sh start
+echo "start zookeeper"

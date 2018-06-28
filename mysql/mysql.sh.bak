@@ -1,0 +1,81 @@
+#!/bin/bash
+
+
+function init_db() {
+	mysql -uroot -p"123456" -e "source /opt/instll/wind_auth.sql"
+	mysql -uroot -p"123456" -e "source /opt/install/wind_user.sql"
+	mysql -uroot -p"123456" -e "source /opt/install/apolloconfigdb.sql"
+	mysql -uroot -p"123456" -e "source /opt/install/apolloportaldb.sql"
+}
+
+# init mysql
+function init_mysql() {
+	mkdir -p /opt/mysql/data/
+	sed -i "s/datadir=\/var\/lib\/mysql/datadir=\/opt\/mysql\/data/g"  /etc/my.cnf
+	mysqld --initialize --user=root --basedir=/opt/mysql/ --datadir=/opt/mysql/data
+	chmod -R 777 /opt/mysql/data
+
+	# mysqld --initialize
+	# chmod -R 777 /var/lib/mysql/*
+	#cp /opt/install/my.cnf /etc/my.cnf
+	systemctl start mysqld
+	echo "start mysql finish"
+
+	prefix='A temporary password is generated for root@localhost: '
+	pwd_default=`grep  "$prefix"  /var/log/mysqld.log | awk  -F "$prefix" '{print  $2}'`
+	mysql -uroot -p"'$pwd_default'" -e "SET PASSWORD = PASSWORD('123456')"  --connect-expired-password;
+	echo "update password finish"
+
+	mysql -uroot -p"123456" -e "use mysql;grant all privileges on *.* to 'root'@'%' identified by '123456';flush privileges;"
+	echo "grant privileges finish"
+}
+
+# install
+function install_mysql() {
+	mysql_server=`rpm -qa | grep mysql-community-server-5`
+	if [[ $mysql_server == '' ]]; then
+		rpm -ivh /opt/install/mysql57-community-release-el7-7.noarch.rpm;
+		yum -y install mysql-community-server
+	fi
+	echo "install mysql finish"
+}
+
+# download
+function download_mysql() {
+	flag=$(mysql_md5_check)
+	echo "check mysql md5 result: $flag"
+	while [ $flag == -1 ]; do	
+		wget -P /opt/install/ dev.mysql.com/get/mysql57-community-release-el7-7.noarch.rpm
+		flag=$(mysql_md5_check)
+	done
+	echo "download mysql rpm finish !!!"
+}
+
+# check md5
+function mysql_md5_check() {
+	mysql_md5='05deb28004fb21744af4ed0ad199ce55'
+	if [ ! -f "/opt/install/mysql57-community-release-el7-7.noarch.rpm" ];then
+		echo -1
+		return
+	fi
+	md5=`md5sum /opt/install/mysql57-community-release-el7-7.noarch.rpm | echo  $mysql_md5 |awk -F ' ' '{print $1}'`
+	if [ $md5 == $mysql_md5 ]; then
+		echo 0
+		return
+	else
+		rm -rf /opt/install/mysql57-community-release-el7-7.noarch.rpm
+    	echo -1
+    	return
+	fi
+}
+
+
+echo "start 0"
+download_mysql
+echo "start 1"
+install_mysql
+echo "start 2"
+init_mysql
+echo "start 3"
+#init_db
+echo "start 6"

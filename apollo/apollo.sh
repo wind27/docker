@@ -1,13 +1,17 @@
 #!/bin/bash
 
-echo "git clone apollo ..."
-cd /opt/install/
-rm -rf apollo-build-scripts
-git clone https://github.com/nobodyiam/apollo-build-scripts.git
-echo "git clone apollo finish"
+if [ ! -d "/opt/install/apollo-build-scripts" ];then
+	echo "git clone apollo ..."
+	cd /opt/install/
+	# rm -rf apollo-build-scripts
+	git clone https://github.com/nobodyiam/apollo-build-scripts.git
+	echo "git clone apollo finish"
+fi
 
 echo "update apollo config ..."
 cd apollo-build-scripts/
+
+sed -i "s/localhost:3306/mysql:3306/g" `grep "localhost:3306" -rl demo.sh`
 sed -i "s/apollo_config_db_password=/apollo_config_db_password=123456/g" `grep "apollo_config_db_password=" -rl demo.sh`
 sed -i "s/apollo_portal_db_password=/apollo_portal_db_password=123456/g" `grep "apollo_portal_db_password=" -rl demo.sh`
 sed -i "s/declare -i max_counter=24/declare -i max_counter=120/g" `grep "apollo_portal_db_password=" -rl demo.sh`
