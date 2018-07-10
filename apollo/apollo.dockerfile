@@ -10,5 +10,6 @@ RUN mkdir -p ${BASE_INSTALL_DIR}
 
 COPY apollo.sh ${BASE_INSTALL_DIR}
 COPY start.sh ${BASE_INSTALL_DIR}
+COPY install.sh ${BASE_INSTALL_DIR}
 
-RUN sh ${BASE_INSTALL_DIR}/apollo.sh
+RUN sh ${BASE_INSTALL_DIR}/install.sh

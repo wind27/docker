@@ -10,4 +10,6 @@ RUN mkdir -p ${BASE_INSTALL_DIR}
 
 COPY nexus.sh ${BASE_INSTALL_DIR}
 
+COPY nexus-3.2.0-01-unix.tar.gz ${BASE_INSTALL_DIR}
+
 RUN sh ${BASE_INSTALL_DIR}/nexus.sh;

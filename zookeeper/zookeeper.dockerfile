@@ -8,8 +8,10 @@ ENV BASE_INSTALL_DIR /opt/install
 
 RUN mkdir -p ${BASE_INSTALL_DIR}
 
+COPY zookeeper-3.4.12.tar.gz ${BASE_INSTALL_DIR}
 
 COPY start.sh ${BASE_INSTALL_DIR}
+
 COPY zookeeper.sh ${BASE_INSTALL_DIR}
 
 COPY zoo.cfg ${BASE_INSTALL_DIR}

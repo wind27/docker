@@ -3,8 +3,8 @@
 # download 
 function nexus_download() {
 	nexus_md5='727287d2f6e697a28f4501b42ab7db71';
-	flag=1;
-	while [ flag == 1 ]; do
+	#flag=1;
+	#while [ flag == 1 ]; do
 		if [ ! -f "/opt/install/nexus-3.2.0-01-unix.tar.gz" ];then
 			wget -P /opt/install/ https://sonatype-download.global.ssl.fastly.net/nexus/3/nexus-3.2.0-01-unix.tar.gz
 		fi
@@ -14,7 +14,7 @@ function nexus_download() {
 		else
 			rm -rf /opt/install/nexus-3.2.0-01-unix.tar.gz
 		fi
-	done
+	#done
 	echo "nexus download finish !!!"
 }
 

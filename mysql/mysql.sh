@@ -26,17 +26,12 @@ pwd_default=`grep  "$prefix"  /var/log/mysqld.log | awk  -F "$prefix" '{print  $
 echo $pwd_default
 
 echo "update password and grant privileges ..."
-
 mysql -uroot -p"$pwd_default" -e "SET PASSWORD = PASSWORD('123456')"  --connect-expired-password;
-
 mysql -uroot -p"123456" -e "use mysql;grant all privileges on *.* to 'root'@'%' identified by '123456';flush privileges;"
 echo "update password and grant privileges finish"
 
 echo "init database tables ..."
 mysql -uroot -p"123456" -e "source /opt/install/wind_auth.sql"
 mysql -uroot -p"123456" -e "source /opt/install/wind_user.sql"
-
 mysql -uroot -p"123456" -e "source /opt/install/apolloconfigdb.sql"
 mysql -uroot -p"123456" -e "source /opt/install/apolloportaldb.sql"
-
-echo "init database tables finish"

@@ -3,18 +3,18 @@
 # download 
 function jenkins_download() {
 	jenkins_md5='e440c41a705f1b4688f0767f8d0a122c';
-	flag = 1;
-	while [ flag == 1 ]; do
-		if [ ! -f "/opt/install/mysql57-community-release-el7-7.noarch.rpm" ];then
+	#flag=1;
+	#while [ flag == 1 ]; do
+		if [ ! -f "/opt/install/jenkins-2.107.3-1.1.noarch.rpm" ];then
 			wget -P /opt/install/ https://pkg.jenkins.io/redhat-stable/jenkins-2.107.3-1.1.noarch.rpm
 		fi
 		md5=`md5sum /opt/install/jenkins-2.107.3-1.1.noarch.rpm | awk -F ' ' '{print $1}'`
-		if [ $md5 == $mysql_md5 ]; then
+		if [ $md5 == $jenkins_md5 ]; then
 			flag = 0;
 		else
 			rm -rf /opt/install/jenkins-2.107.3-1.1.noarch.rpm
 		fi
-	done
+	#done
 	echo "jenkins install finish !!!"
 }
 

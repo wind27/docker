@@ -17,7 +17,6 @@ COPY apolloconfigdb.sql ${BASE_INSTALL_DIR}
 COPY start.sh ${BASE_INSTALL_DIR}
 COPY mysql.sh ${BASE_INSTALL_DIR}
 COPY mysql.sh.bak ${BASE_INSTALL_DIR}
-
 COPY install.sh ${BASE_INSTALL_DIR}
 
-RUN sh ${BASE_INSTALL_DIR}/install.sh
+#RUN sh ${BASE_INSTALL_DIR}/install.sh
