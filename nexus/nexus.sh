@@ -10,7 +10,7 @@ function nexus_download() {
 		fi
 		md5=`md5sum /opt/install/nexus-3.2.0-01-unix.tar.gz | awk -F ' ' '{print $1}'`
 		if [ $md5 == $nexus_md5 ]; then
-			flag = 0;
+			flag=0;
 		else
 			rm -rf /opt/install/nexus-3.2.0-01-unix.tar.gz
 		fi
