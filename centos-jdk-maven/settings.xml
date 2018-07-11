@@ -14,12 +14,12 @@
 
     <servers>
         <server>
-            <id>maven-releases</id>
+            <id>releases</id>
             <username>admin</username>
             <password>admin123</password>
         </server>
 	    <server>
-            <id>maven-snapshots</id>
+            <id>snapshots</id>
             <username>admin</username>
             <password>admin123</password>
         </server>
@@ -37,6 +37,8 @@
                 <maven.compiler.source>1.8</maven.compiler.source>
                 <maven.compiler.target>1.8</maven.compiler.target>
                 <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
+                <releases.repo>http://nexus:8081/repository/maven-releases/</releases.repo>
+                <snapshots.repo>http://nexus:8081/repository/maven-snapshots/</snapshots.repo>
             </properties>
 
             <repositories>

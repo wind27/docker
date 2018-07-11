@@ -1,0 +1,14 @@
+docker stop mysql
+docker start mysql
+
+docker stop hbase
+docker start hbase
+
+docker stop zookeeper
+docker start zookeeper
+
+docker stop jenkins
+docker start jenkins
+
+docker stop apollo
+docker start apollo
