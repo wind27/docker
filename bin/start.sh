@@ -1,6 +1,7 @@
 #!/bin/bash
 
 function start() {
+	docker start nexus
 	docker start mysql
 	docker start hbase
 	docker start zookeeper

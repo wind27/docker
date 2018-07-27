@@ -8,21 +8,25 @@ package
 dependency:copy-dependencies
 
 
+maven.test.skip=true
+maven.javadoc.skip=true
+maven.cobertura.skip=true
+outputDirectory11=/opt/workspace/wind-auth-service/
+jarTarget=/opt/workspace/wind-auth-service/dependency
 
 
-mkdir -p /opt/server/wind-auth-service/lib
-mkdir -p /opt/server/wind-auth-service/conf
-mkdir -p /opt/server/wind-auth-service/bin
-rm -rf /opt/server/wind-auth-service/lib/*
-rm -rf /opt/server/wind-auth-service/conf/*
-rm -rf /opt/server/wind-auth-service/bin/*
-cp -ra /opt/workspace/wind-auth-service/dependency/* /opt/server/wind-auth-service/lib
-cp -ra /opt/workspace/wind-auth-service/wind-auth-service-0.0.1-SNAPSHOT.jar /opt/server/wind-auth-service/lib
-cp -ra /opt/workspace/wind-auth-service/classes/*.yml /opt/server/wind-auth-service/conf
-cp -ra /opt/workspace/wind-auth-service/classes/*.xml /opt/server/wind-auth-service/conf
-cp -ra /opt/workspace/wind-auth-service/classes/META-INF /opt/server/wind-auth-service/conf
-cp -ra /opt/workspace/wind-auth-service/classes/spring /opt/server/wind-auth-service/conf
-cp -ra /opt/workspace/wind-auth-service/classes/*.properties /opt/server/wind-auth-service/conf
+
+
+mkdir -p /opt/server/wind-auth-service/
+cd /opt/server/wind-auth-service
+mkdir lib conf bin
+rm -rf lib/* conf/* bin/*
+cd /opt/workspace/wind-auth-service/classes
+cp bin/* /opt/server/wind-auth-service/bin/
+cp -ra spring META-INF *.yml *.xml *.properties /opt/server/wind-auth-service/conf
+cd /opt/workspace/wind-auth-service
+cp -ra  dependency/* /opt/server/wind-auth-service/lib
+
 
 
 
