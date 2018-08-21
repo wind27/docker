@@ -9,4 +9,7 @@ ENV BASE_INSTALL_DIR /opt/install
 RUN mkdir -p ${BASE_INSTALL_DIR}
 
 COPY install.sh ${BASE_INSTALL_DIR}
+
+COPY restart.sh ${BASE_INSTALL_DIR}
+
 RUN sh /opt/install/install.sh
