@@ -5,5 +5,5 @@ if [ $pid ]; then
 	kill -9 $pid
 	echo "kill pid : $pid"
 fi
-nohup java -jar /usr/lib/jenkins/jenkins.war --ajp13Port=-1 --httpPort=8082 &  
+nohup java -jar /usr/lib/jenkins/jenkins.war --ajp13Port=-1 --httpPort=8080 --prefix=/jenkins &  
 echo "start jenkins success"

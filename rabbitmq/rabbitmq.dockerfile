@@ -10,8 +10,12 @@ RUN mkdir -p ${BASE_INSTALL_DIR}
 
 COPY start.sh ${BASE_INSTALL_DIR}
 
+COPY install.sh ${BASE_INSTALL_DIR}
+
 COPY rabbitmq.sh ${BASE_INSTALL_DIR}
 
-COPY rabbitmq-erlang.repo /etc/yum.repos.d/
+COPY rabbitmq-erlang.repo ${BASE_INSTALL_DIR}
+COPY rabbitmq-env.conf ${BASE_INSTALL_DIR}
+COPY rabbitmq.config ${BASE_INSTALL_DIR}
 
 #RUN sh ${BASE_INSTALL_DIR}/install.sh

@@ -10,6 +10,4 @@ RUN mkdir -p ${BASE_INSTALL_DIR}
 
 COPY jenkins.sh ${BASE_INSTALL_DIR}
 
-COPY jenkins-2.107.3-1.1.noarch.rpm ${BASE_INSTALL_DIR}
-
 RUN sh ${BASE_INSTALL_DIR}/jenkins.sh
