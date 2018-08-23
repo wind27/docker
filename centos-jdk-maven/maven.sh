@@ -1,22 +1,41 @@
 #!/bin/bash
 
-# install apache-maven-3.5.3
-echo "install apache-maven-3.5.3 ..."
-mkdir -p /usr/local/maven
-rm -rf /usr/local/maven/*
+downloan_url='http://mirrors.hust.edu.cn/apache/maven/maven-3/3.5.4/binaries/apache-maven-3.5.4-bin.tar.gz'
+downloan_file_name='apache-maven-3.5.4-bin.tar.gz'
+install_dir='/usr/local/maven'
+maven_home='/usr/local/maven/apache-maven-3.5.4'
+maven_md5='89eea39183139e5f8a0c1601d495b3b6';
 
-cd /opt/install/
-rm -rf apache-maven-3.5.3-bin.tar.gz
-wget http://mirror.bit.edu.cn/apache/maven/maven-3/3.5.3/binaries/apache-maven-3.5.3-bin.tar.gz
-tar -zxvf apache-maven-3.5.3-bin.tar.gz -C /usr/local/maven
-mv /usr/local/maven/apache-maven-3.5.3/conf/settings.xml /usr/local/maven/apache-maven-3.5.3/conf/settings.xml.bak
-cp /opt/install/settings.xml /usr/local/maven/apache-maven-3.5.3/conf/settings.xml
-rm -rf apache-maven-3.5.3-bin.tar.gz
-cp /opt/install/settings.xml /opt/settings.xml
-echo "install apache-maven-3.5.3 finish"
+function _init() {
+	mkdir -p /usr/local/maven
+	rm -rf /usr/local/maven/*
+	rm -rf /opt/install/${downloan_file_name}
+}
 
-echo "init PATH ..."
-echo 'export MAVEN_HOME=/usr/local/maven/apache-maven-3.5.3' >> ~/.bashrc
-echo 'export PATH=$PATH:$MAVEN_HOME/bin' >> ~/.bashrc
-source ~/.bashrc
-echo "init PATH finish"
+# download 
+function _download() {
+	rm -rf /opt/install/${downloan_file_name}
+	wget -P /opt/install/ ${downloan_url}
+	md5=`md5sum /opt/install/${downloan_file_name} | awk -F ' ' '{print $1}'`
+	if [ $md5 != $maven_md5 ]; then
+		echo "maven download fail !!!"
+		exit -1
+	fi
+	echo "maven download finish !!!"
+}
+
+# install
+function _install() {
+	tar -zxvf /opt/install/${downloan_file_name} -C /usr/local/maven
+	mv ${maven_home}/conf/settings.xml ${maven_home}/conf/settings.xml.bak
+	cp /opt/install/settings.xml ${maven_home}/conf/settings.xml
+	echo "export MAVEN_HOME=${maven_home}" >> ~/.bashrc
+	source ~/.bashrc
+	echo "export PATH=$PATH:$JAVA_HOME/bin:$MAVEN_HOME/bin" >> ~/.bashrc
+	source ~/.bashrc
+	echo "maven install success !!!"
+}
+
+_init
+_download
+_install

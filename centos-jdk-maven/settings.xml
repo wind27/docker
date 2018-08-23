@@ -2,13 +2,13 @@
 <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
           xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
           xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd">
-    <localRepository>~/.m2/repository</localRepository>
+    <localRepository>/opt/.m2/repository</localRepository>
     <mirrors>
         <mirror>
             <id>public</id>
             <mirrorOf>central</mirrorOf>
             <name>internal nexus repository</name>
-            <url>http://nexus:8081/repository/maven-public/</url>
+            <url>http://nexus/nexus/repository/maven-public/</url>
         </mirror>
     </mirrors>
 
@@ -37,8 +37,8 @@
                 <maven.compiler.source>1.8</maven.compiler.source>
                 <maven.compiler.target>1.8</maven.compiler.target>
                 <maven.compiler.compilerVersion>1.8</maven.compiler.compilerVersion>
-                <releases.repo>http://nexus:8081/repository/maven-releases/</releases.repo>
-                <snapshots.repo>http://nexus:8081/repository/maven-snapshots/</snapshots.repo>
+                <releases.repo>http://nexus/nexus/repository/maven-releases/</releases.repo>
+                <snapshots.repo>http://nexus/nexus/repository/maven-snapshots/</snapshots.repo>
             </properties>
 
             <repositories>
