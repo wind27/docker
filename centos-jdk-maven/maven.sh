@@ -14,7 +14,7 @@ function _init() {
 
 # download 
 function _download() {
-	rm -rf /opt/install/${downloan_file_name}
+	
 	wget -P /opt/install/ ${downloan_url}
 	md5=`md5sum /opt/install/${downloan_file_name} | awk -F ' ' '{print $1}'`
 	if [ $md5 != $maven_md5 ]; then

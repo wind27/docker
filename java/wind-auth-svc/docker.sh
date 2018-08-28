@@ -4,4 +4,4 @@ docker build -t wind-auth-svc:0.0.1 -f wind-auth-svc.dockerfile .
 docker run --privileged -t -d --name wind-auth-svc wind-auth-svc:0.0.1 /usr/sbin/init;
 docker network connect wind_net wind-auth-svc
 
-# docker exec -it wind-auth-service /bin/bash
+# docker exec -it wind-auth-svc /bin/bash
