@@ -9,5 +9,5 @@ fi
 echo "stop redis finish"
 
 echo "start redis ..."
-redis-server &
+/usr/local/redis/redis-4.0.11/src/redis-server /usr/local/redis/redis-4.0.11/redis.conf &
 echo "start redis finish"

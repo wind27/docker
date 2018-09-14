@@ -31,12 +31,18 @@ function _install() {
 		cd /usr/local/redis/redis-4.0.11/src/
 		make install
 	fi
+
+	#client-output-buffer-limit normal 0 0 0
+	#client-output-buffer-limit slave 256mb 64mb 60
+	#client-output-buffer-limit pubsub 32mb 8mb 60
+	
+
 	echo "redis install success !!!"
 }
 
 # start redis
 function _start() {
-	${redis_home}/src/redis-server &
+	${redis_home}/src/redis-server ${redis_home}/redis.conf &
 	echo "redis start success !!!"
 }
 
@@ -48,7 +54,7 @@ function _chkconfig() {
 	chmod +x /etc/rc.d/init.d/redis
 	echo "#!/bin/bash" >> /etc/rc.d/init.d/redis
 	echo "# chkconfig: 12345 95 05" >> /etc/rc.d/init.d/redis
-	echo "${redis_home}/src/redis-server &" >> /etc/rc.d/init.d/redis
+	echo "${redis_home}/src/redis-server ${redis_home}/redis.conf &" >> /etc/rc.d/init.d/redis
 	chkconfig --add redis
 	echo "chkconfig add redis success"
 }
