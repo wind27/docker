@@ -31,12 +31,6 @@ function _install() {
 		cd /usr/local/redis/redis-4.0.11/src/
 		make install
 	fi
-
-	#client-output-buffer-limit normal 0 0 0
-	#client-output-buffer-limit slave 256mb 64mb 60
-	#client-output-buffer-limit pubsub 32mb 8mb 60
-	
-
 	echo "redis install success !!!"
 }
 

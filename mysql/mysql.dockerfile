@@ -11,6 +11,7 @@ RUN mkdir -p ${BASE_INSTALL_DIR}
 COPY my.cnf ${BASE_INSTALL_DIR}
 COPY wind_auth.sql ${BASE_INSTALL_DIR}
 COPY wind_user.sql ${BASE_INSTALL_DIR}
+COPY wind_blog.sql ${BASE_INSTALL_DIR}
 COPY apolloportaldb.sql ${BASE_INSTALL_DIR}
 COPY apolloconfigdb.sql ${BASE_INSTALL_DIR}
 
