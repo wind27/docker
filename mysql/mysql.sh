@@ -9,7 +9,7 @@ password='Dev123@wind.COM';
 function _init() {
 	mkdir -p /opt/mysql/data/ /opt/mysql/log/
 	rm -rf /opt/mysql/data/* /opt/mysql/log/*
-	chown -R mysql.mysql /opt/mysql
+	# chown -R mysql.mysql /opt/mysql
 }
 
 # download 
@@ -44,7 +44,7 @@ function _start() {
 	mv /etc/my.cnf /etc/my.cnf.bak
 	cp /opt/install/my.cnf /etc/my.cnf
 	systemctl start mysqld
-	sleep 1
+	sleep 3
 	echo "start mysql finish"	
 }
 
@@ -55,17 +55,17 @@ function _changePwd() {
 	pwd_default=`grep  "$prefix"  /opt/mysql/log/mysqld.log | awk  -F "$prefix" '{print  $2}'`
 	echo $pwd_default
 	echo "update password and grant privileges ..."
-	mysql -uroot -p"$pwd_default" -e "SET PASSWORD = PASSWORD(${password})"  --connect-expired-password;
-	mysql -uroot -p"${password}" -e "use mysql;grant all privileges on *.* to 'root'@'%' identified by '${password}';flush privileges;"
+	mysql -uroot -p"$pwd_default" -e "SET PASSWORD = PASSWORD('Dev123@wind.COM')"  --connect-expired-password;
+	mysql -uroot -pDev123@wind.COM -e "use mysql;grant all privileges on *.* to 'root'@'%' identified by 'Dev123@wind.COM';flush privileges;"
 	echo "update password and grant privileges finish"
 }
 
 # init database
 function _initdb() {
 	echo "init database tables ..."
-	mysql -uroot -p"${password}" -e "source /opt/install/wind_auth.sql"
-	mysql -uroot -p"${password}" -e "source /opt/install/wind_user.sql"
-	mysql -uroot -p"${password}" -e "source /opt/install/wind_blog.sql"
+	mysql -uroot -pDev123@wind.COM -e "source /opt/install/wind_auth.sql"
+	mysql -uroot -pDev123@wind.COM -e "source /opt/install/wind_user.sql"
+	mysql -uroot -pDev123@wind.COM -e "source /opt/install/wind_blog.sql"
 }
 
 # chkconfig 设置开机启动
