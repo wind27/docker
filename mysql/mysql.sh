@@ -9,7 +9,7 @@ password='Dev123@wind.COM';
 function _init() {
 	mkdir -p /opt/mysql/data/ /opt/mysql/log/
 	rm -rf /opt/mysql/data/* /opt/mysql/log/*
-	# chown -R mysql.mysql /opt/mysql
+	chown -R mysql.mysql /opt/mysql
 }
 
 # download 
@@ -39,11 +39,10 @@ function _start() {
 	echo "start mysql ..."
 	mysqld --initialize
 	chmod -R 777 /var/lib/mysql/*
-	chown -R mysql.mysql /opt/mysql
 
 	mv /etc/my.cnf /etc/my.cnf.bak
 	cp /opt/install/my.cnf /etc/my.cnf
-	systemctl start mysqld
+	su mysql -c "systemctl start mysqld"
 	sleep 3
 	echo "start mysql finish"	
 }
@@ -74,9 +73,9 @@ function _chkconfig() {
 	rm -rf /etc/rc.d/init.d/mysql 
 	touch /etc/rc.d/init.d/mysql
 	chmod +x /etc/rc.d/init.d/mysql
-	echo "#!/bin/bash" >> /etc/rc.d/init.d/mysql
-	echo "# chkconfig: 12345 95 05" >> /etc/rc.d/init.d/mysql
-	echo "systemctl start mysqld" >> /etc/rc.d/init.d/mysql
+	echo '#!/bin/bash' >> /etc/rc.d/init.d/mysql
+	echo '# chkconfig: 12345 95 05' >> /etc/rc.d/init.d/mysql
+	echo 'su dev -c "systemctl start mysqld"' >> /etc/rc.d/init.d/mysql
 	chkconfig --add mysql
 	echo "chkconfig add mysql success"
 }

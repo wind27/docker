@@ -1,9 +1,8 @@
 #!/bin/bash
 downloan_url='https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.4.0.tar.gz'
 install_dir='/usr/local/elasticsearch/'
-downloan_file_name='elasticsearch-6.4.0.tar.gz'
-
-elasticsearch_home=${install_dir}${downloan_file_name}
+downloan_file_name='/opt/install/elasticsearch-6.4.0.tar.gz'
+elasticsearch_home=/usr/local/elasticsearch/elasticsearch-6.4.0
 elasticsearch_md5='5c23c99a52600b250a6871bf6a744e8b';
 
 data_path=/opt/elasticsearch/data/
@@ -11,15 +10,16 @@ log_path=/opt/elasticsearch/log/
 
 # init
 function _init() {
-	# rm -rf ${data_path} ${log_path}
+	chown -R dev.dev /opt
 	mkdir -p ${data_path} ${log_path} ${install_dir}
 }
 
 # download 
 function _download() {
-	rm -rf /opt/install/${downloan_file_name}
-	wget -P /opt/install/ ${downloan_url}
-	md5=`md5sum /opt/install/${downloan_file_name} | awk -F ' ' '{print $1}'`
+	cp /opt/elasticsearch/elasticsearch-6.4.0.tar.gz /opt/install/elasticsearch-6.4.0.tar.gz
+	# rm -rf ${downloan_file_name}
+	# wget -P /opt/install/ ${downloan_url}
+	md5=`md5sum ${downloan_file_name} | awk -F ' ' '{print $1}'`
 	if [ $md5 != $elasticsearch_md5 ]; then
 		echo "elasticsearch download fail !!!"
 		exit -1;
@@ -30,14 +30,16 @@ function _download() {
 # install
 function _install() {
 	if [ ! -d ${elasticsearch_home} ]; then
-		tar -zxvf /opt/install/${downloan_file_name} -C ${install_dir}
+		tar -zxvf ${downloan_file_name} -C ${install_dir}
 	fi
+	mv ${elasticsearch_home}/config/elasticsearch.yml ${elasticsearch_home}/config/elasticsearch.yml.bak
+	cp /opt/install/elasticsearch.yml ${elasticsearch_home}/config/elasticsearch.yml
 	echo "elasticsearch install success !!!"
 }
 
 # start
 function _start() {
-	/usr/local/elasticsearch/elasticsearch-6.4.0/bin/elasticsearch
+	su dev -c "sh /usr/local/elasticsearch/elasticsearch-6.4.0/bin/elasticsearch -d"
 	echo "elasticsearch start success !!!"
 }
 
@@ -49,7 +51,7 @@ function _chkconfig() {
 	chmod +x /etc/rc.d/init.d/elasticsearch
 	echo "#!/bin/bash" >> /etc/rc.d/init.d/elasticsearch
 	echo "# chkconfig: 12345 95 05" >> /etc/rc.d/init.d/elasticsearch
-	echo "/usr/local/elasticsearch/elasticsearch-6.4.0/bin/elasticsearch" >> /etc/rc.d/init.d/elasticsearch
+	echo 'su dev -c "sh /usr/local/elasticsearch/elasticsearch-6.4.0/bin/elasticsearch -d"' >> /etc/rc.d/init.d/elasticsearch
 	chkconfig --add elasticsearch
 	echo "chkconfig add elasticsearch success"
 }
@@ -57,5 +59,5 @@ function _chkconfig() {
 _init
 _download
 _install
-_start
+# _start
 _chkconfig

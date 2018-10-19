@@ -1,1 +1,0 @@
-https://artifacts.elastic.co/downloads/logstash/logstash-6.4.1.tar.gz
