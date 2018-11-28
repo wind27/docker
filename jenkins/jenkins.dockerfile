@@ -8,6 +8,10 @@ ENV BASE_INSTALL_DIR /opt/install
 
 RUN mkdir -p ${BASE_INSTALL_DIR}
 
+COPY user.sh ${BASE_INSTALL_DIR}
+
+COPY install.sh ${BASE_INSTALL_DIR}
+
 COPY jenkins.sh ${BASE_INSTALL_DIR}
 
-RUN sh ${BASE_INSTALL_DIR}/jenkins.sh
+RUN sh ${BASE_INSTALL_DIR}/install.sh

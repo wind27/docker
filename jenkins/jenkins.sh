@@ -41,7 +41,7 @@ function _chkconfig() {
 	chmod +x /etc/rc.d/init.d/jenkins
 	echo '#!/bin/bash' >> /etc/rc.d/init.d/jenkins
 	echo '# chkconfig: 12345 95 05' >> /etc/rc.d/init.d/jenkins
-	echo 'nohup java -jar /usr/lib/jenkins/jenkins.war --ajp13Port=-1 --httpPort=8080 --prefix=/jenkins &' >> /etc/rc.d/init.d/jenkins
+	echo 'su - dev -c 'java -Dhudson.util.ProcessTree.disable=true -jar /usr/lib/jenkins/jenkins.war --ajp13Port=-1 --httpPort=8082 --prefix=/jenkins &'' >> /etc/rc.d/init.d/jenkins
 	chkconfig --add jenkins
 	echo "chkconfig add jenkins success"
 }

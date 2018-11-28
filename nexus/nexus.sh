@@ -36,7 +36,7 @@ function nexus_chkconfig() {
 	chmod +x /etc/rc.d/init.d/nexus
 	echo '#!/bin/bash' >> /etc/rc.d/init.d/nexus
 	echo '# chkconfig: 12345 95 05' >> /etc/rc.d/init.d/nexus
-	echo '/usr/local/nexus/nexus-3.2.0-01/bin/nexus start' >> /etc/rc.d/init.d/nexus
+	echo 'su - dev -c "/usr/local/nexus/nexus-3.2.0-01/bin/nexus run &"' >> /etc/rc.d/init.d/nexus
 	chkconfig --add nexus
 	echo "chkconfig add nexus success"
 }
