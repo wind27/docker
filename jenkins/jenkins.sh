@@ -1,5 +1,9 @@
 #!/bin/bash
 
+function _init() {
+	mkdir -p /opt/jenkins/
+}
+
 # download 
 function _download() {
 	jenkins_md5='e440c41a705f1b4688f0767f8d0a122c';
@@ -46,6 +50,7 @@ function _chkconfig() {
 	echo "chkconfig add jenkins success"
 }
 
+_init
 _download
 _install
 _start

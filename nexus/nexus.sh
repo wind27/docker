@@ -1,7 +1,10 @@
 #!/bin/bash
 
+function _init() {
+	mkdir -p /opt/nexus/
+}
 # download 
-function nexus_download() {
+function _download() {
 	nexus_md5='727287d2f6e697a28f4501b42ab7db71';
 	#flag=1;
 	#while [ flag == 1 ]; do
@@ -18,7 +21,7 @@ function nexus_download() {
 	echo "nexus download finish !!!"
 }
 
-function nexus_install() {
+function _install() {
 	if [ ! -d /usr/local/nexus/nexus-3.2.0-01/ ]; then
 		rm -rf /usr/local/nexus/*
 		mkdir -p /usr/local/nexus
@@ -29,7 +32,7 @@ function nexus_install() {
 }
 
 # chkconfig
-function nexus_chkconfig() {
+function _chkconfig() {
 	cd /etc/rc.d/init.d/
 	rm -rf /etc/rc.d/init.d/nexus 
 	touch /etc/rc.d/init.d/nexus
@@ -41,6 +44,7 @@ function nexus_chkconfig() {
 	echo "chkconfig add nexus success"
 }
 
-nexus_download
-nexus_install
-nexus_chkconfig
+_init
+_download
+_install
+_chkconfig
