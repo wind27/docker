@@ -1,0 +1,6 @@
+#!/bin/bash
+# chkconfig: 12345 95 05
+
+export JAVA_HOME=/usr/java/jdk1.8.0_181-amd64/
+export MAVEN_HOME=/usr/local/maven/apache-maven-3.5.4
+export PATH=$PATH:$JAVA_HOME/bin:$MAVEN_HOME/bin
