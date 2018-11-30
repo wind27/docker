@@ -1,3 +1,4 @@
 #!/bin/bash
 
- sh /opt/install/rabbitmq.sh
+sh /opt/install/user.sh
+sh /opt/install/rabbitmq.sh

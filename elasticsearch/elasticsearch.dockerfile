@@ -9,13 +9,17 @@ ENV BASE_INSTALL_DIR /opt/install
 RUN mkdir -p ${BASE_INSTALL_DIR}
 
 COPY restart.sh ${BASE_INSTALL_DIR}
+
 COPY install.sh ${BASE_INSTALL_DIR}
+
 COPY user.sh ${BASE_INSTALL_DIR}
 
 COPY elasticsearch.sh ${BASE_INSTALL_DIR}
+
 COPY kibana.sh ${BASE_INSTALL_DIR}
 
 COPY kibana.yml ${BASE_INSTALL_DIR}
+
 COPY elasticsearch.yml ${BASE_INSTALL_DIR}
 
 RUN sh ${BASE_INSTALL_DIR}/install.sh

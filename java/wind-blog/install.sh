@@ -29,4 +29,9 @@ function _init() {
 
 	chown -R dev.dev /usr/local/filebeat/
 	chown -R dev.dev /opt/filebeat/
+
+	mkdir /etc/rc.d/init.d/java_env
+	echo 'export JAVA_HOME=/usr/java/jdk1.8.0_181-amd64/' >> /etc/rc.d/init.d/java_env
+	echo 'export MAVEN_HOME=/usr/local/maven/apache-maven-3.5.4' >> /etc/rc.d/init.d/java_env
+	echo 'export PATH=$PATH:$JAVA_HOME/bin:$MAVEN_HOME/bin' >> /etc/rc.d/init.d/java_env
 }

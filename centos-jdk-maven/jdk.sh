@@ -23,8 +23,6 @@ function _download() {
 # install
 function _install() {
 	rpm -ivh /opt/install/${downloan_file_name}
-	echo 'export JAVA_HOME=/usr/java/jdk1.8.0_181-amd64' >> ~/.bashrc
-	source ~/.bashrc
 	echo "jdk install success !!!"
 }
 

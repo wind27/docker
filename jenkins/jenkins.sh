@@ -1,7 +1,8 @@
 #!/bin/bash
 
 function _init() {
-	mkdir -p /opt/jenkins/
+	mkdir -p /opt/jenkins/.jenkins
+	chown -R dev:dev /opt/jenkins/
 }
 
 # download 
@@ -45,7 +46,13 @@ function _chkconfig() {
 	chmod +x /etc/rc.d/init.d/jenkins
 	echo '#!/bin/bash' >> /etc/rc.d/init.d/jenkins
 	echo '# chkconfig: 12345 95 05' >> /etc/rc.d/init.d/jenkins
-	echo 'su - dev -c 'java -Dhudson.util.ProcessTree.disable=true -jar /usr/lib/jenkins/jenkins.war --ajp13Port=-1 --httpPort=8082 --prefix=/jenkins &'' >> /etc/rc.d/init.d/jenkins
+
+	echo 'export JAVA_HOME=/usr/java/jdk1.8.0_181-amd64/' >> /etc/rc.d/init.d/jenkins
+	echo 'export MAVEN_HOME=/usr/local/maven/apache-maven-3.5.4' >> /etc/rc.d/init.d/jenkins
+	echo 'export PATH=$PATH:$JAVA_HOME/bin:$MAVEN_HOME/bin' >> /etc/rc.d/init.d/jenkins
+	echo 'export JENKINS_HOME=/opt/jenkins/.jenkins' >> /etc/rc.d/init.d/jenkins
+	
+	echo 'su - dev -c 'java -Dhudson.util.ProcessTree.disable=true -jar /usr/lib/jenkins/jenkins.war --ajp13Port=-1 --httpPort=8082 --prefix=/jenkins &' >> /etc/rc.d/init.d/jenkins
 	chkconfig --add jenkins
 	echo "chkconfig add jenkins success"
 }

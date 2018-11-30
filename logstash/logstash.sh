@@ -53,6 +53,11 @@ function _chkconfig() {
 	chmod +x /etc/rc.d/init.d/logstash
 	echo '#!/bin/bash' >> /etc/rc.d/init.d/logstash
 	echo '# chkconfig: 12345 95 05' >> /etc/rc.d/init.d/logstash
+
+	echo 'export JAVA_HOME=/usr/java/jdk1.8.0_181-amd64/' >> /etc/rc.d/init.d/jenkins
+	echo 'export MAVEN_HOME=/usr/local/maven/apache-maven-3.5.4' >> /etc/rc.d/init.d/jenkins
+	echo 'export PATH=$PATH:$JAVA_HOME/bin:$MAVEN_HOME/bin' >> /etc/rc.d/init.d/jenkins
+
 	echo 'su dev -c "sh /usr/local/logstash/logstash-6.4.0/bin/logstash -f /usr/local/logstash/logstash-6.4.0/config/mysql_es.conf &"' >> /etc/rc.d/init.d/logstash
 	chkconfig --add logstash
 	echo "chkconfig add logstash success"

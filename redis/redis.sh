@@ -48,7 +48,7 @@ function _chkconfig() {
 	chmod +x /etc/rc.d/init.d/redis
 	echo "#!/bin/bash" >> /etc/rc.d/init.d/redis
 	echo "# chkconfig: 12345 95 05" >> /etc/rc.d/init.d/redis
-	echo "${redis_home}/src/redis-server ${redis_home}/redis.conf &" >> /etc/rc.d/init.d/redis
+	echo 'su - dev -c "/usr/local/redis/redis-4.0.11/src/redis-server /usr/local/redis/redis-4.0.11/redis.conf &"' >> /etc/rc.d/init.d/redis
 	chkconfig --add redis
 	echo "chkconfig add redis success"
 }

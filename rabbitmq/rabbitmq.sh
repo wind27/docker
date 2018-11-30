@@ -7,8 +7,8 @@ rabbitmq_release_signing_key_url='https://dl.bintray.com/rabbitmq/Keys/rabbitmq-
 
 # init
 function _init() {
-	mkdir -p  /opt/rabbitmq-server/data /opt/rabbitmq-server/log
-	chmod -R 777 /opt/rabbitmq-server
+	mkdir -p  /opt/rabbitmq/data /opt/rabbitmq/log
+	chmod -R 777 /opt/rabbitmq
 	yum -y install socat logrotate deltarpm
 	cp /opt/install/rabbitmq-erlang.repo /etc/yum.repos.d/
 	yum -y install erlang
@@ -58,7 +58,12 @@ function _chkconfig() {
 	chmod +x /etc/rc.d/init.d/rabbitmq
 	echo '#!/bin/bash' >> /etc/rc.d/init.d/rabbitmq
 	echo '# chkconfig: 12345 95 05' >> /etc/rc.d/init.d/rabbitmq
-	echo 'rabbitmq-server' >> /etc/rc.d/init.d/rabbitmq
+
+	echo 'export JAVA_HOME=/usr/java/jdk1.8.0_181-amd64/' >> /etc/rc.d/init.d/jenkins
+	echo 'export MAVEN_HOME=/usr/local/maven/apache-maven-3.5.4' >> /etc/rc.d/init.d/jenkins
+	echo 'export PATH=$PATH:$JAVA_HOME/bin:$MAVEN_HOME/bin' >> /etc/rc.d/init.d/jenkins
+
+	echo 'su - rabbitmq -c "rabbitmq-server  -detached"' >> /etc/rc.d/init.d/rabbitmq
 	chkconfig --add rabbitmq
 	echo "chkconfig add rabbitmq success"
 }

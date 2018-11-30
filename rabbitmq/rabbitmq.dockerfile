@@ -12,6 +12,7 @@ COPY rabbitmq-erlang.repo ${BASE_INSTALL_DIR}
 COPY rabbitmq-env.conf ${BASE_INSTALL_DIR}
 COPY rabbitmq.config ${BASE_INSTALL_DIR}
 
+COPY user.sh ${BASE_INSTALL_DIR}
 COPY rabbitmq.sh ${BASE_INSTALL_DIR}
 COPY install.sh ${BASE_INSTALL_DIR}
 COPY restart.sh ${BASE_INSTALL_DIR}

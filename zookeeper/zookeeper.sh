@@ -47,6 +47,11 @@ function _chkconfig() {
 	chmod +x /etc/rc.d/init.d/zookeeper
 	echo "#!/bin/bash" >> /etc/rc.d/init.d/zookeeper
 	echo "# chkconfig: 12345 95 05" >> /etc/rc.d/init.d/zookeeper
+
+	echo 'export JAVA_HOME=/usr/java/jdk1.8.0_181-amd64/' >> /etc/rc.d/init.d/jenkins
+	echo 'export MAVEN_HOME=/usr/local/maven/apache-maven-3.5.4' >> /etc/rc.d/init.d/jenkins
+	echo 'export PATH=$PATH:$JAVA_HOME/bin:$MAVEN_HOME/bin' >> /etc/rc.d/init.d/jenkins
+
 	echo "sh ${zookeeper_home}/bin/zkServer.sh start" >> /etc/rc.d/init.d/zookeeper
 	chkconfig --add zookeeper
 	echo "chkconfig add zookeeper success"

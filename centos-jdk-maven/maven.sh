@@ -29,10 +29,6 @@ function _install() {
 	tar -zxvf /opt/install/${downloan_file_name} -C /usr/local/maven
 	mv ${maven_home}/conf/settings.xml ${maven_home}/conf/settings.xml.bak
 	cp /opt/install/settings.xml ${maven_home}/conf/settings.xml
-	echo "export MAVEN_HOME=${maven_home}" >> ~/.bashrc
-	source ~/.bashrc
-	echo "export PATH=$PATH:$JAVA_HOME/bin:$MAVEN_HOME/bin" >> ~/.bashrc
-	source ~/.bashrc
 	echo "maven install success !!!"
 }
 
