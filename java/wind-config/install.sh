@@ -2,6 +2,7 @@
 
 # 安装依赖
 function _yumInstall() {
+	# 安装pidof
 	yum -y install sysvinit-tools
 }
 
@@ -28,12 +29,13 @@ function _ssh() {
 # 初始化环境
 function _init() {
 	# 创建目录
-	mkdir -p /opt/workspace/wind-blog/ /opt/server/wind-blog/ /opt/logs/
-	mkdir -p /opt/server/wind-blog/bin/ /opt/server/wind-blog/conf/ /opt/server/wind-blog/lib/ /opt/server/wind-blog/ext/ /opt/server/wind-blog/config/
+	mkdir -p /opt/workspace/wind-config/ /opt/server/wind-config/ /opt/logs/
+	mkdir -p /opt/server/wind-config/bin/ /opt/server/wind-config/conf/ /opt/server/wind-config/lib/ /opt/server/wind-config/ext/ /opt/server/wind-config/config/
 	sh /opt/install/wrapper.sh
 	chown -R dev.dev /opt/
-
-	mkdir /etc/rc.d/init.d/java_env
+	
+	mkdir -p /etc/rc.d/init.d/
+	touch /etc/rc.d/init.d/java_env
 	echo 'export JAVA_HOME=/usr/java/jdk1.8.0_181-amd64/' >> /etc/rc.d/init.d/java_env
 	echo 'export MAVEN_HOME=/usr/local/maven/apache-maven-3.5.4' >> /etc/rc.d/init.d/java_env
 	echo 'export PATH=$PATH:$JAVA_HOME/bin:$MAVEN_HOME/bin' >> /etc/rc.d/init.d/java_env
@@ -46,5 +48,3 @@ _yumInstall
 _setGroupAndUser
 _ssh
 _init
-
-
